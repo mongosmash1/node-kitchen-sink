@@ -1,31 +1,30 @@
 {
-  "name": "node-kitchen-sink",
-  "version": "1.0.0",
-  "description": "Node.js boilerplate with everything including the kitchen sink",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mongosmash1/node-kitchen-sink.git"
-  },
-  "keywords": [
-    "node",
-    "express",
-    "graphql",
-    "mongodb",
-    "mysql",
-    "postgres",
-    "oracle",
-    "redis",
-    "soap"
-  ],
-  "author": "mongosmash1",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mongosmash1/node-kitchen-sink/issues"
-  },
-  "homepage": "https://github.com/mongosmash1/node-kitchen-sink#readme"
+    "name": "node-kitchen-sink",
+    "version": "1.0.0",
+    "description": "Node.js boilerplate with everything including the kitchen sink",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server/server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/mongosmash1/node-kitchen-sink.git"
+    },
+    "keywords": [
+        "node",
+        "express",
+        "graphql",
+        "mongodb",
+        "mysql",
+        "oracledb",
+        "redis",
+        "soap"
+    ],
+    "author": "mongosmash1",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/mongosmash1/node-kitchen-sink/issues"
+    },
+    "homepage": "https://github.com/mongosmash1/node-kitchen-sink#readme"
 }
