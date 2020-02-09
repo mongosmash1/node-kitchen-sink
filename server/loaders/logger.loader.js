@@ -4,21 +4,29 @@ const morgan = require('morgan');
 const { logger } = require('../config');
 
 module.exports = app => {
-	logger.verbose('💼  enabling logging...');
+	// log loading and add timestamp
+	logger.info('enabling logging...');
+	const loggerLoaderStartedTime = new Date();
+
 	// generate unique uuid and assign to request object
 	app.use((req, res, next) => {
 		req.id = nanoid();
 		next();
 	});
 
-	// custom morgan token for req header id
+	// add token to morgan for req header id
 	morgan.token('id', req => req.id);
 
-	// custom morgan req/res format
-	const loggerReqFormat = ':id ":method :url" :remote-addr';
-	const loggerResFormat = ':id ":method :url" :status :response-time';
+	// custom morgan req format, more verbose for production
+	const loggerReqFormat =
+		process.env.NODE_ENV !== 'production'
+			? `:id ":method :url" :remote-addr`
+			: `:id ":method :url" HTTP/:http-version :res[content-length] ":referrer" ":user-agent" :remote-addr`;
 
-	// stream all requests to logger at info level
+	// customer morgan res format
+	const loggerResFormat = `:id ":method :url" :status :response-time ms`;
+
+	// stream all requests to logger combined log
 	app.use(
 		morgan(loggerReqFormat, {
 			immediate: true,
@@ -26,7 +34,7 @@ module.exports = app => {
 		})
 	);
 
-	// stream all error responses to logger at error level
+	// stream all error responses to logger error log
 	app.use(
 		morgan(loggerResFormat, {
 			skip: (req, res) => res.statusCode < 400,
@@ -34,7 +42,7 @@ module.exports = app => {
 		})
 	);
 
-	// stream all error success responses to logger at info level
+	// stream all success responses to logger combined log
 	app.use(
 		morgan(loggerResFormat, {
 			skip: (req, res) => res.statusCode >= 400,
@@ -42,7 +50,11 @@ module.exports = app => {
 		})
 	);
 
-	logger.verbose('💼  logging enabled...');
+	// log loading complete with time differential
+	const loggerLoaderLoadedTime = new Date();
+	const loggerLoaderTimeToLoad = loggerLoaderLoadedTime - loggerLoaderStartedTime;
+	logger.info(`logging enabled...time to load ${loggerLoaderTimeToLoad}ms`);
 
+	// pass app back to express
 	return app;
 };

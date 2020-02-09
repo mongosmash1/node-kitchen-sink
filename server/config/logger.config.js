@@ -1,10 +1,10 @@
 const { addColors, createLogger, format, transports } = require('winston');
 
-const { align, combine, colorize, json, timestamp, padLevels, printf } = format;
+const { combine, colorize, json, timestamp, padLevels, printf } = format;
 
 // log file locations
-const combinedLogFilePath = './server/logs/combined.log';
-const errorLogFilePath = './server/logs/error.log';
+const combinedLogFilePath = './logs/combined.log';
+const errorLogFilePath = './logs/error.log';
 
 const noJSONFormat = () => printf(info => `${info.timestamp} ${info.level}: ${info.message}`);
 
@@ -31,7 +31,7 @@ const customLevelsFormat = {
 // define the custom settings for each transport (file, console)
 const options = {
 	logFile: {
-		level: 'info',
+		level: 'verbose',
 		filename: combinedLogFilePath,
 		handleExceptions: true,
 		maxsize: 5242880, // 5MB
@@ -51,20 +51,21 @@ const options = {
 		stderrLevels: ['error'],
 		consoleWarnLevels: ['warn'],
 		handleExceptions: true,
-		format: combine(colorize(), timestamp(), align(), padLevels(), noJSONFormat()),
+		format: combine(colorize(), timestamp(), padLevels(), noJSONFormat()),
 	},
 };
 
 // instantiate a new Winston Logger with the settings defined above
 const logger = createLogger({
 	levels: customLevelsFormat.levels,
-	transports: [
-		new transports.File(options.logFile),
-		new transports.File(options.errorFile),
-		new transports.Console(options.console),
-	],
+	transports: [new transports.File(options.logFile), new transports.File(options.errorFile)],
 	exitOnError: false, // do not exit on handled exceptions
 });
+
+// only log to console in development
+if (process.env.NODE_ENV !== 'production') {
+	logger.add(new transports.Console(options.console));
+}
 
 // apply custom colors
 addColors(customLevelsFormat.colors);
