@@ -1,0 +1,62 @@
+{
+	"name": "node-kitchen-sink",
+	"version": "1.0.0",
+	"description": "Node.js boilerplate with everything including the kitchen sink",
+	"main": "server.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "nodemon --tls-min-v1.0 server.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/mongosmash1/node-kitchen-sink.git"
+	},
+	"keywords": [
+		"node",
+		"express",
+		"graphql",
+		"mongodb",
+		"mysql",
+		"oracledb",
+		"redis",
+		"soap"
+	],
+	"author": "mongosmash1",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/mongosmash1/node-kitchen-sink/issues"
+	},
+	"homepage": "https://github.com/mongosmash1/node-kitchen-sink#readme",
+	"dependencies": {
+		"apollo-server-express": "^2.10.0",
+		"axios": "^0.19.2",
+		"bcryptjs": "^2.4.3",
+		"compression": "^1.7.4",
+		"connect-mongo": "^3.2.0",
+		"dotenv-safe": "^8.2.0",
+		"email-templates": "^7.0.2",
+		"express": "^4.17.1",
+		"express-session": "^1.17.0",
+		"express-status-monitor": "^1.2.8",
+		"express-validator": "^6.4.0",
+		"glob": "^7.1.6",
+		"helmet": "^3.21.2",
+		"mongodb": "^3.5.2",
+		"mongoose": "^5.8.11",
+		"morgan": "^1.9.1",
+		"mysql": "^2.18.1",
+		"nanoid": "^2.1.11",
+		"nodemailer": "^6.4.2",
+		"oracledb": "^4.2.0",
+		"passport": "^0.4.1",
+		"passport-local": "^1.0.0",
+		"path": "^0.12.7",
+		"puppeteer": "^2.1.1",
+		"soap": "^0.30.0",
+		"winston": "^3.2.1",
+		"xml2js": "^0.4.23"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.2"
+	}
+}

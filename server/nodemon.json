@@ -1,0 +1,11 @@
+{
+	"restartable": "rs",
+	"colours": true,
+	"ignore": [".git", "node_modules/**/node_modules"],
+	"delay": "1500",
+	"watch": [".env", "*.*"],
+	"env": {
+		"NODE_ENV": "development"
+	},
+	"ext": "js,json,sql,env"
+}
