@@ -1,18 +1,15 @@
 {
+	"eslint.workingDirectories": [
+        // "./",
+        { "mode": "auto" }
+    ],
 	"eslint.enable": true,
-	"prettier.disableLanguages": ["javascript", "javascriptreact"],
 	"editor.formatOnSave": false,
-	"editor.codeActionsOnSave": {
-		"source.fixAll": true
-	},
-	"eslint.format.enable": true,
 	"[javascript]": {
-		"editor.defaultFormatter": "dbaeumer.vscode-eslint",
-		"editor.formatOnSave": true
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
 	},
 	"[javascriptreact]": {
-		"editor.defaultFormatter": "dbaeumer.vscode-eslint",
-		"editor.formatOnSave": true
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
 	},
 	"[jsonc]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"

@@ -1,7 +1,7 @@
 # Node Kitchen Sink
 
 Node.js Boilerplate with everything including the kitchen sink
-[comment]: <> (tree -an --dirsfirst ... graphically print dir structure including files on Linux)
+[comment]: <> (tree -an --dirsfirst -I 'node_modules|.git'... graphically print dir structure including files on Linux)
 
 ## Project Folder structure
 
