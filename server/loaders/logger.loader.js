@@ -1,6 +1,6 @@
-const nanoid = require('nanoid');
 const morgan = require('morgan');
 
+const { uuid } = require('../middleware');
 const { logger } = require('../config');
 
 module.exports = app => {
@@ -8,23 +8,20 @@ module.exports = app => {
 	logger.info('enabling logging...');
 	const loggerLoaderStartedTime = new Date();
 
-	// generate unique uuid and assign to request object
-	app.use((req, res, next) => {
-		req.id = nanoid();
-		next();
-	});
+	// assign request ID to request object and bind CLE to req and res objects
+	app.use(uuid.setId());
 
 	// add token to morgan for req header id
-	morgan.token('id', req => req.id);
+	morgan.token('id', () => uuid.getId());
 
 	// custom morgan req format, more verbose for production
 	const loggerReqFormat =
 		process.env.NODE_ENV !== 'production'
-			? `:id ":method :url" :remote-addr`
-			: `:id ":method :url" HTTP/:http-version :res[content-length] ":referrer" ":user-agent" :remote-addr`;
+			? `req: ":method :url" :remote-addr`
+			: `req: ":method :url" HTTP/:http-version :res[content-length] ":referrer" ":user-agent" :remote-addr`;
 
 	// customer morgan res format
-	const loggerResFormat = `:id ":method :url" :status :response-time ms`;
+	const loggerResFormat = `res: ":method :url" :status :response-time ms`;
 
 	// stream all requests to logger combined log
 	app.use(

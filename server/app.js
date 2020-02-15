@@ -2,12 +2,7 @@ const express = require('express');
 const statusMonitor = require('express-status-monitor');
 
 const { logger } = require('./config');
-const {
-	authenticationLoader,
-	httpHeadersLoader,
-	loggerLoader,
-	mongodbLoader,
-} = require('./loaders');
+const { authenticationLoader, headersLoader, loggerLoader, mongodbLoader } = require('./loaders');
 const { statusMonitorConfig } = require('./config');
 
 // log startup and add timestamp
@@ -24,7 +19,7 @@ app.use(statusMonitor(statusMonitorConfig));
 loggerLoader(app);
 
 // load http header security options
-httpHeadersLoader(app);
+headersLoader(app);
 
 // body parsing middleware
 app.use(express.json());
@@ -39,7 +34,7 @@ Promise.all([mongodbLoader.initMongodb(app)]);
 app.get('/status', statusMonitor);
 
 // test route
-app.get('/*', (req, res) => res.send('Hello World'));
+app.get('/*', (req, res) => {res.send('Hello World')});
 
 // log startup complete with time differential
 const expressLoadedTime = new Date();
