@@ -26,7 +26,7 @@
 		"linebreak-style": ["error", "windows"],
 		"object-curly-newline": [
 			"error",
-			{ "minProperties": 10, "multiline": true }
+			{ "minProperties": 4, "multiline": true }
 		],
 		"no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
 		"react/prop-types": ["error", { "skipUndeclared": true }],

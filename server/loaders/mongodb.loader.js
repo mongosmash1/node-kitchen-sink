@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const { logger, mongodbConfig } = require('../config');
+const { logger } = require('../middleware');
+const { mongodbConfig } = require('../config');
 
 const { db, uri, options } = mongodbConfig;
 
@@ -53,8 +54,10 @@ const closeMongodb = async err => {
 	}
 };
 
+const getMongodbConnection = () => mongodbConnection;
+
 module.exports = {
 	closeMongodb,
 	initMongodb,
-	mongodbConnection,
+	getMongodbConnection,
 };

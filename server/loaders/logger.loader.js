@@ -1,24 +1,24 @@
 const morgan = require('morgan');
 
-const { uuid } = require('../middleware');
-const { logger } = require('../config');
+const { logger, uuid } = require('../middleware');
 
 module.exports = app => {
 	// log loading and add timestamp
 	logger.info('enabling logging...');
 	const loggerLoaderStartedTime = new Date();
 
-	// assign request ID to request object and bind CLE to req and res objects
+	// assign request ID to request object and bind CLS to req and res objects
 	app.use(uuid.setId());
 
-	// add token to morgan for req header id
+	// add req ID to morgan token
 	morgan.token('id', () => uuid.getId());
 
-	// custom morgan req format, more verbose for production
+	// custom morgan req format
 	const loggerReqFormat =
 		process.env.NODE_ENV !== 'production'
 			? `req: ":method :url" :remote-addr`
-			: `req: ":method :url" HTTP/:http-version :res[content-length] ":referrer" ":user-agent" :remote-addr`;
+			: // more verbose for production
+			  `req: ":method :url" HTTP/:http-version :res[content-length] ":referrer" ":user-agent" :remote-addr`;
 
 	// customer morgan res format
 	const loggerResFormat = `res: ":method :url" :status :response-time ms`;

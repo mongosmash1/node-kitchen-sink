@@ -1,6 +1,6 @@
 const http = require('http');
 require('dotenv-safe').config();
-const { logger } = require('./config');
+const { logger } = require('./middleware');
 
 logger.info('starting server...');
 const serverStartedTime = new Date();

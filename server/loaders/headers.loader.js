@@ -2,7 +2,7 @@ const compression = require('compression');
 const cors = require('cors');
 const helmet = require('helmet');
 
-const { logger } = require('../config');
+const { logger } = require('../middleware');
 
 module.exports = app => {
 	// log loading and add timestamp

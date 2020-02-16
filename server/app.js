@@ -1,8 +1,8 @@
 const express = require('express');
 const statusMonitor = require('express-status-monitor');
 
-const { logger } = require('./config');
-const { authenticationLoader, headersLoader, loggerLoader, mongodbLoader } = require('./loaders');
+const { logger } = require('./middleware');
+const { authnLoader, headersLoader, loggerLoader, mongodbLoader } = require('./loaders');
 const { statusMonitorConfig } = require('./config');
 
 // log startup and add timestamp
@@ -25,16 +25,18 @@ headersLoader(app);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-Promise.all([mongodbLoader.initMongodb(app)]);
+mongodbLoader.initMongodb(app);
 
-// authenticationLoader(app);
+authnLoader(app);
 
 // status monitor dashboard route
 // need to secure this route
 app.get('/status', statusMonitor);
 
 // test route
-app.get('/*', (req, res) => {res.send('Hello World')});
+app.get('/*', (req, res) => {
+	res.send('Hello World');
+});
 
 // log startup complete with time differential
 const expressLoadedTime = new Date();
