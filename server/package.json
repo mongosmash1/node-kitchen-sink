@@ -29,7 +29,7 @@
 	"homepage": "https://github.com/mongosmash1/node-kitchen-sink#readme",
 	"dependencies": {
 		"apollo-server-express": "^2.10.0",
-		"axios": "^0.19.2",
+		"axios": "^0.21.1",
 		"bcryptjs": "^2.4.3",
 		"cls-hooked": "^4.2.2",
 		"compression": "^1.7.4",
